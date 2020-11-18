@@ -33,7 +33,7 @@ const playlistData = [
         name: "D'Angelo"
     },
     {
-        title: "YourPlaylist",
+        title: "Your Playlist",
         color: "rgb(182 112 218)",
         contrast: "rgb(76 199 137)",
         image: disco,

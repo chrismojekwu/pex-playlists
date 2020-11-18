@@ -75,7 +75,7 @@ function App() {
       setModalType("playlist");
       setModalData(whimsical);
     }
-    if ( id === "YourPlaylist" ){
+    if ( id === "Your Playlist" ){
       setModalType("user-playlist");
       setModalData(getUserPlaylist());
     }
@@ -129,7 +129,7 @@ function App() {
           : display === "Spooky" ? 
             <Songs songs={filteredSongs.creep} addConfirm={addConfirm} setAddConfirm={setAddConfirm}
               setModal={setModal} setOpacity={setOpacity} watchModalData={watchModalData} playlist={getUserPlaylist()}/> 
-          : display === "YourPlaylist" ? 
+          : display === "Your Playlist" ? 
             <UserPlaylist songs={songs} display={display}
               setModal={setModal} setOpacity={setOpacity} watchModalData={watchModalData} playlist={getUserPlaylist()}/> : ""}
         </ul>
