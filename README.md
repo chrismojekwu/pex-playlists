@@ -1,4 +1,7 @@
-# Pex Playlist Submission
+# Pex Playlist Submission  
+
+Live Link - (https://pex-playlists.vercel.app/)
+
 My goal for this submission was to create a responsive application that displays songs according to 3 supplied moods.
 
 Foremost I wanted to make sure the songs were categorized well so I listened to the first 100 songs on the playlist and categorized them. I tried to stay as neutral as possible but the data is biased. 
