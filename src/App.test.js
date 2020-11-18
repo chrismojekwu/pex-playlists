@@ -1,8 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+afterEach(cleanup);
+
+it('renders the header on correctly', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByTestId("card-header")).toBeInTheDocument();  
+});
+
+it('renders the correct amount of images', () => {
+  render(<App />);
+  const images = screen.queryAllByRole('img');
+  expect(images.length).toBe(11);
 });

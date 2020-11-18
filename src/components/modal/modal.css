@@ -1,0 +1,78 @@
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(1, 12, 110, 0.4);
+    transition: 2s ease-in-out;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 60%;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.x-icon {
+    height: 32px;
+    width: 32px;
+    position: relative;
+    left: 80%;
+    cursor: pointer;
+}
+
+.playlist-modal-rank-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.playlist-modal-rank-titles > * {
+    background-color: black;
+    color: white;
+    line-height: 20px;
+    padding-left: 5px;
+}
+
+.playlist-modal-rank-titles > .percent {
+    width: 50%;
+    transition: 0.4s ease-in;
+}
+
+.playlist-modal-rank-titles > .percent:hover {
+    color: chartreuse;
+    transition: 0.4s ease-in;
+}
+
+.outer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.outer:hover {
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.outer:hover > * {
+    padding-right: 40%;
+    padding-left: 10%;
+    transition: 1.7s ease-in-out;
+}
+
+.inner {
+    background-color: white;
+    color: black;
+    padding-left: 30%;
+}
+
+.asterisk {
+    margin-top: 5px;
+    font-size: 10px;
+    width: 60%;
+}

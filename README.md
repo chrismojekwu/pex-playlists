@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Pex Playlist Submission
+My goal for this submission was to create a responsive application that displays songs according to 3 supplied moods.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Foremost I wanted to make sure the songs were categorized well so I listened to the first 100 songs on the playlist and categorized them. I tried to stay as neutral as possible but the data is biased. 
 
-## Available Scripts
+After completing my review of the songs, I used Javascript to average the values of the provided attributes of the songs in each playlist. 
 
-In the project directory, you can run:
+I also calculated a 3 part range of the values and used that data to find a 1st, 2nd and 3rd rank for the playlists.
 
-### `npm start`
+I found out that not many songs met the average standards so I tuned the values based on the collected numbers and mood defining songs.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In terms of the presentation of the data I used HTML & CSS alongside JSX & Javascript to create a dynamic single page interface for the user that retains its core functionality on mobile.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
+- A user can view the songs that made it on the seperate playlists.
 
-### `npm test`
+- Each playlist contains an informational modal with its rank in the collected attributes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- A user can view a specific songs attribute percentage which is based on the collected ranges.
 
-### `npm run build`
+- A user can create their own playlist, which after reaching a reasonable number of songs will recieve a percentage value in relation to the collected ranges, and also may be catagorized. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Tech Used
+React, Javascript, Html, Css
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Future Updates..
+If I had more time, direction and ability I would like to do the following.
 
-### `npm run eject`
+- Research: I would like to learn more about the attributes of songs, in my opinion...based on my opinion they seemed pretty accurate. Outside of loudness & tempo which were direct values all the other attributes are derived from a number of things. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Componentization: My approach consists of 4 components and utility functions that could be improved for reusability and performance. 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Testing: The application is not fully tested in any means I would have liked to dive deeper into the testing and also test the utility functions. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Music: I think an interesting next step would be to actually have some music streaming. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- User Song Ratings: It would be great to have users categorize songs and collect the values based off peoples responses. I also think it would be really interesting to see what songs elicit what moods for individuals or friends.

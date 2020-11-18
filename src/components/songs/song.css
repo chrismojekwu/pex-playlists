@@ -1,0 +1,66 @@
+.song-tile {
+    position: relative;
+    font-size: 12px;
+    border: solid black 1px;
+    width: 100%;
+    background-color: rgb(9, 32, 61);
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px 0 rgba(34, 103, 143, 0.356);
+    margin-bottom: -5px;
+}
+
+.song-tile:hover {
+    background-color: rgb(32, 133, 91);
+    transition: 0.4s ease-out;
+}
+
+.song-tile:focus {
+    background-color: rgb(36, 105, 105);
+    transition: 0.6s ease-in;
+}
+
+.song-title {
+    font-size: 16px;
+}
+
+.actions {
+    text-align: right;
+}
+
+.actions > * {
+    margin-right: 10px;
+}
+
+.actions > *:hover {
+    color: rgb(255, 43, 220);
+    transition: 0.4s;
+}
+
+.add-confirm {
+    position: relative;
+    right: 6.5%;
+    bottom: -60px;
+    color: rgb(0, 217, 255);
+    font-size: 10px;
+    transition: 0.4s ease-in-out;
+    z-index: 0;
+}
+.dot {
+    position: absolute;
+    right: 89%;
+    color: rgba(118, 197, 38, 0.5);
+    font-size: 5px;
+}
+
+@keyframes confirm {
+    0% {bottom: 60px;}
+    0% {opacity: 0;}
+    50% {bottom: 5px;}
+    50% {opacity: 1;}
+    85% {opacity: 0;}
+    100% {bottom: 60px;}
+    100% {opacity: 0;}
+}
