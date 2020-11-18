@@ -1,6 +1,6 @@
 import happy from '../../images/emoji/happy.png';
 import ghosty from '../../images/emoji/ghosty.png';
-import angry from '../../images/emoji/angry.webp';
+import angry from '../../images/emoji/angry.png';
 import cd from '../../images/emoji/cd.png';
 import deangelo from '../../images/deangelo.png';
 import erkin from '../../images/erkin.png';
