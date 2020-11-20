@@ -75,7 +75,7 @@ function App() {
       setModalType("playlist");
       setModalData(whimsical);
     }
-    if ( id === "YourPlaylist" ){
+    if ( id === "Your Playlist" ){
       setModalType("user-playlist");
       setModalData(getUserPlaylist());
     }
@@ -85,6 +85,20 @@ function App() {
       setModalData(songModalData);
     }
   };
+
+  const handleSongData = () => {
+    let data;
+
+    /*display === "Aggressive"
+    ? data = filteredSongs.agg
+    : display === "Whimsical"
+    ? data === filteredSongs.fun
+    : display === "Spooky"
+    ? data === filteredSongs.creep
+    : data = songs;*/
+
+    return filterSongs.agg; 
+  }
 
   const renderLanding = () => {
     let message;
@@ -120,18 +134,8 @@ function App() {
       <section className="playlist-songs" style={{ right: right, backgroundImage: `linear-gradient(${background})`}}>
        
         <ul className="song-container">
-          {display === "Aggressive" ? 
-            <Songs songs={filteredSongs.agg} addConfirm={addConfirm} setAddConfirm={setAddConfirm}
+        <Songs songs={handleSongData()} addConfirm={addConfirm} setAddConfirm={setAddConfirm}
               setModal={setModal} setOpacity={setOpacity} watchModalData={watchModalData} playlist={getUserPlaylist()}/>
-          : display === "Whimsical" ? 
-            <Songs songs={filteredSongs.fun} addConfirm={addConfirm} setAddConfirm={setAddConfirm}
-              setModal={setModal} setOpacity={setOpacity} watchModalData={watchModalData} playlist={getUserPlaylist()}/>
-          : display === "Spooky" ? 
-            <Songs songs={filteredSongs.creep} addConfirm={addConfirm} setAddConfirm={setAddConfirm}
-              setModal={setModal} setOpacity={setOpacity} watchModalData={watchModalData} playlist={getUserPlaylist()}/> 
-          : display === "YourPlaylist" ? 
-            <UserPlaylist songs={songs} display={display}
-              setModal={setModal} setOpacity={setOpacity} watchModalData={watchModalData} playlist={getUserPlaylist()}/> : ""}
         </ul>
 
         <div className="direction" ref={scrollRef}>
