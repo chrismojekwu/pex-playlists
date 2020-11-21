@@ -1,6 +1,6 @@
 import happy from '../../images/emoji/happy.png';
 import ghosty from '../../images/emoji/ghosty.png';
-import angry from '../../images/emoji/angry.webp';
+import angry from '../../images/emoji/angry.png';
 import cd from '../../images/emoji/cd.png';
 import deangelo from '../../images/deangelo.png';
 import erkin from '../../images/erkin.png';
@@ -33,7 +33,7 @@ const playlistData = [
         name: "D'Angelo"
     },
     {
-        title: "YourPlaylist",
+        title: "Your Playlist",
         color: "rgb(182 112 218)",
         contrast: "rgb(76 199 137)",
         image: disco,
