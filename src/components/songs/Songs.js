@@ -27,14 +27,8 @@ function Songs(props) {
   };
 
   const handleStats = (id) => {
-    props.setOpacity(0);
-    setTimeout(() => {
       props.watchModalData(id);
       props.setModal(true);
-    }, 100);
-    setTimeout(() => {
-      props.setOpacity(1);
-    }, 100);
   };
 
   const renderSongs = () => { 

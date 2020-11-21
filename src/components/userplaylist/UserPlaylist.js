@@ -24,8 +24,7 @@ function UserPlaylist(props) {
         :   playlist !== null && playlist[0] !== undefined
         ?   <Song songs={filterUserPlaylistSongs(playlist, props.songs)} display={props.display} 
                 setRenderToggle={setRenderToggle} renderToggle={renderToggle}
-                setModal={props.setModal} setOpacity={props.setOpacity} 
-                watchModalData={props.watchModalData} 
+                setModal={props.setModal} watchModalData={props.watchModalData} 
             /> 
         :   <div className="no-list" data-testid="emptyplaylist">
             <span>▲</span>

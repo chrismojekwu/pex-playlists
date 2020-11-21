@@ -24,42 +24,48 @@ function Modal(props) {
 
     const renderPlaylistData = () => {
         
+        const renderSpans = (data) => {
+            let ranks = [];
+            for(const attribute in data){
+                if(attribute !== "name"){
+                    ranks.push({name: data[attribute].name, rank: data[attribute].rank});
+                }; 
+            };
+            
+            return ranks.map((attribute, index) => {
+                return (
+                    <span className="outer" key={index}>
+                        {attribute.name}
+                        <span className="inner">
+                            {attribute.rank}
+                        </span>
+                    </span>
+                );
+            });
+        };
+        
         return (
-            <div className="modal">
-                <div className="modal-content">
-                {renderXIcon()}   
-                    {playlistModalDescription(props.data.name)}
-                    <h4>Ranks:</h4>
-                    <div className="playlist-modal-rank-titles">
-                        <span className="outer">Acousticness<span className="inner">{props.data.acoustic.rank}</span></span>
-                        <span className="outer">Danceability<span className="inner">{props.data.dance.rank}</span></span>
-                        <span className="outer">Energy<span className="inner">{props.data.energy.rank}</span></span>
-                        <span className="outer">Instrumentalness<span className="inner">{props.data.instru.rank}</span></span>
-                        <span className="outer">Liveness<span className="inner">{props.data.live.rank}</span></span>
-                        <span className="outer">Loudness<span className="inner">{props.data.loud.rank}</span></span>
-                        <span className="outer">Speechiness<span className="inner">{props.data.speech.rank}</span></span>
-                    </div>
-                    <div className="asterisk">* Loudness is included but was not a deciding factor.</div>
+            <>                  
+                {playlistModalDescription(props.data.name)}
+                <h4>Ranks:</h4>
+                <div className="playlist-modal-rank-titles">
+                    {renderSpans(props.data)}
                 </div>
-            </div>
+                <div className="asterisk">* Loudness is included but was not a deciding factor.</div>
+            </>
         );
     };
 
     const renderUserPlaylistData = () => {
         //checks if data is too small empty or null and returns a message
         let message = "";
-        if (props.data.length === 0 || props.data === null || props.songs === null){
+        if (props.data === null || props.songs === null || props.data.length === 0){
             message = "Please add songs to your playlist to get a rating."
-
-            
             return (
-                <div className="modal">
-                    <div className="modal-content">
-                    {renderXIcon()} 
-                        <h4>Sorry!</h4> 
-                        {message}
-                    </div>
-                </div>
+                <>                    
+                    <h4>Sorry!</h4> 
+                    {message}
+                </>
             )
         } else //other wise create title
         message = "Your Playlist is";
@@ -108,28 +114,28 @@ function Modal(props) {
         let percentObjectArray = calculatePercent(collected);
         
         return (
-            <div className="modal">
-                <div className="modal-content">
-                {renderXIcon()} 
-                        {message}{category}
-                        <h4>Stats:</h4>
-                    <div className="playlist-modal-rank-titles">
-                        {percentObjectArray.map((percent, index) => {
+            
+            <>
+                
+                {message}{category}
+                <h4>Stats:</h4>
+                <div className="playlist-modal-rank-titles">
+                    {percentObjectArray.map((percent, index) => {
+                    
+                        //create string for css and text display
+                        const spanPercent = formatPercentString(percent.percent);
                         
-                            //create string for css and text display
-                            const spanPercent = formatPercentString(percent.percent);
-                            
-                            //return spans with according functions and values
-                            return (
-                                <span className="percent" key={index} style={{width: percentWidth}} onMouseEnter={() => animatePercentageBar("in", spanPercent )} 
-                                    onMouseOut={() => animatePercentageBar("out")}>
-                                    {percent.percent}{"% "}{percent.name}
-                                </span>
-                            );
-                        })}
-                    </div>    
-                </div>
-            </div>
+                        //return spans with according functions and values
+                        return (
+                            <span className="percent" key={index} style={{width: percentWidth}} onMouseEnter={() => animatePercentageBar("in", spanPercent )} 
+                                onMouseOut={() => animatePercentageBar("out")}>
+                                {percent.percent}{"% "}{percent.name}
+                            </span>
+                        );
+                    })}
+                </div>  
+            </>  
+              
         );
     };
 
@@ -142,39 +148,47 @@ function Modal(props) {
         const songPercentArray = calculatePercent(values);
            
         return (
-            <div className="modal">
-                <div className="modal-content">
-                {renderXIcon()} 
-                    <h4>{props.data[0].gsx$artist.$t}</h4>
-                    <span>{props.data[0].gsx$songtitle.$t}</span>
-                    <h4>Stats:</h4>
-                    <div className="playlist-modal-rank-titles">
-                        {songPercentArray.map((percent, index) => {
-
-                            //create string for css and text display
-                            const spanPercent = formatPercentString(percent.percent);
-
-                            //return spans with according functions and values
-                            return (
-                                <span className="percent" key={index} style={{width: percentWidth}} onMouseEnter={() => animatePercentageBar("in", spanPercent )} 
-                                    onMouseOut={() => animatePercentageBar("out")}>
-                                    {percent.percent}{"% "}{percent.name}
-                                </span>
-                            );
-                        })}
+            
+            <>                
+                <h4>{props.data[0].gsx$artist.$t}</h4>
+                <span>{props.data[0].gsx$songtitle.$t}</span>
+                <h4>Stats:</h4>
+                <div className="playlist-modal-rank-titles">
+                    {songPercentArray.map((percent, index) => {
+                        //create string for css and text display
+                        const spanPercent = formatPercentString(percent.percent);
+                        //return spans with according functions and values
+                        return (
+                            <span className="percent" key={index} style={{width: percentWidth}} onMouseEnter={() => animatePercentageBar("in", spanPercent )} 
+                                onMouseOut={() => animatePercentageBar("out")}>
+                                {percent.percent}{"% "}{percent.name}
+                            </span>
+                        );
+                    })}
                     </div>
-                </div>
-            </div>
+            </>
+             
         );
     };
 
-    return  props.modal === true && props.modalType === "playlist"  
-        ? renderPlaylistData() 
-        : props.modal === true && props.modalType === "song"
-        ? renderSongData()
-        : props.modal === true && props.modalType === "user-playlist"
-        ? renderUserPlaylistData()
-        : "" ;
+    const renderModal = () => {
+        return (
+            <div className="modal">
+                <div className="modal-content">
+                      {renderXIcon()} 
+                          {props.modalType === "playlist"  
+                              ? renderPlaylistData() 
+                              : props.modalType === "song"
+                              ? renderSongData()
+                              : props.modalType === "user-playlist"
+                              ? renderUserPlaylistData()
+                              : "" }
+                  </div>
+            </div>
+        )
+    };
+
+    return props.modal === true ? renderModal() : "";
 }
 
 export default Modal;

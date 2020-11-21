@@ -19,15 +19,8 @@ function ListCards(props){
     };
 
     const handleDoubleClick = title => {
-        props.setOpacity(0)  
-        
-        setTimeout(() => {
-            props.setDisplay(title);
-            props.watchModalData(title);
-            props.setModal(true)
-        }, 500);
-
-        props.setOpacity(1);
+        props.watchModalData(title); 
+        props.setModal(true) 
     };
 
     return (
