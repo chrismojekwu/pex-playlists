@@ -24,18 +24,32 @@ function Modal(props) {
 
     const renderPlaylistData = () => {
         
+        const renderSpans = (data) => {
+            let ranks = [];
+            for(const attribute in data){
+                if(attribute !== "name"){
+                    ranks.push({name: data[attribute].name, rank: data[attribute].rank});
+                }; 
+            };
+            
+            return ranks.map((attribute, index) => {
+                return (
+                    <span className="outer" key={index}>
+                        {attribute.name}
+                        <span className="inner">
+                            {attribute.rank}
+                        </span>
+                    </span>
+                );
+            });
+        };
+        
         return (
             <>                  
                 {playlistModalDescription(props.data.name)}
                 <h4>Ranks:</h4>
                 <div className="playlist-modal-rank-titles">
-                    <span className="outer">Acousticness<span className="inner">{props.data.acoustic.rank}</span></span>
-                    <span className="outer">Danceability<span className="inner">{props.data.dance.rank}</span></span>
-                    <span className="outer">Energy<span className="inner">{props.data.energy.rank}</span></span>
-                    <span className="outer">Instrumentalness<span className="inner">{props.data.instru.rank}</span></span>
-                    <span className="outer">Liveness<span className="inner">{props.data.live.rank}</span></span>
-                    <span className="outer">Loudness<span className="inner">{props.data.loud.rank}</span></span>
-                    <span className="outer">Speechiness<span className="inner">{props.data.speech.rank}</span></span>
+                    {renderSpans(props.data)}
                 </div>
                 <div className="asterisk">* Loudness is included but was not a deciding factor.</div>
             </>
@@ -45,10 +59,8 @@ function Modal(props) {
     const renderUserPlaylistData = () => {
         //checks if data is too small empty or null and returns a message
         let message = "";
-        if (props.data.length === 0 || props.data === null || props.songs === null){
+        if (props.data === null || props.songs === null || props.data.length === 0){
             message = "Please add songs to your playlist to get a rating."
-
-            
             return (
                 <>                    
                     <h4>Sorry!</h4> 
