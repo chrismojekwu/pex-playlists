@@ -21,7 +21,7 @@ function Songs(props) {
 
   const handleRemove = (id) => {
     const playlist = JSON.parse(localStorage.getItem("pex-playlist"));
-    const filtered = playlist.filter((ids) => ids !== id);
+    const filtered = playlist.filter((songs) => songs.id.$t !== id);
     localStorage.setItem("pex-playlist", JSON.stringify(filtered));
     props.setRenderToggle(!props.renderToggle);
   };
@@ -30,6 +30,14 @@ function Songs(props) {
       props.watchModalData(id);
       props.setModal(true);
   };
+
+  const dotIndicator = (id) => {
+    let output = [];
+    for(let i = 0; i < props.playlist.length; i++){
+      output.push(props.playlist[i].id.$t);
+    }
+    return output;
+  }
 
   const renderSongs = () => { 
     const arr = props.songs > 100 ? props.songs : props.songs.slice(0, 100);
@@ -45,7 +53,7 @@ function Songs(props) {
             </div>
 
             <div className="dot" style={{ 
-              display: props.playlist && props.playlist.includes(song.id.$t) 
+              display: props.playlist && dotIndicator().includes(song.id.$t) 
                 ? "block" : "none" }}>
               ⬤
             </div>
@@ -56,14 +64,14 @@ function Songs(props) {
                   REMOVE
                 </span>
               : 
-              <span onClick={() => handleAdd(song.id.$t)} tabIndex="0"
+              <span onClick={() => handleAdd(song)} tabIndex="0"
                 onKeyPress={(e) => handleAdd(handleEnterKeypress(e, song.id.$t))}>
                 ADD
               </span>
             }
 
             <span onClick={() => handleStats(song.id.$t)} tabIndex="0"
-              onKeyPress={(e) => handleStats(handleEnterKeypress(e, song.id.$t))}>
+              onKeyPress={(e) => handleStats(handleEnterKeypress(e, song))}>
               STATS
             </span>
 

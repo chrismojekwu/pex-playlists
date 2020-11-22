@@ -67,7 +67,7 @@ function Modal(props) {
         } else //other wise create title
         message = "Your Playlist is";
         
-        let calculatedData = averageUserPlaylist(props.data, props.songs);
+        let calculatedData = averageUserPlaylist(props.data);
         
         let percentObjectArray = calculatePercent(calculatedData.collected);
         
@@ -140,7 +140,7 @@ function Modal(props) {
         )
     };
 
-    return props.modal === true ? renderModal() : "";
+    return props.modal && props.data ? renderModal() : "";
 }
 
 export default Modal;
