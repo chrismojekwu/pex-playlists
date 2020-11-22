@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import X from '../../images/icon/x.png';
 import './modal.css';
-import { playlistModalDescription, calculatePercent, formatSongObjectValues, formatPercentString } from '../utils/functions';
+import { playlistModalDescription, calculatePercent, formatSongObjectValues, formatPercentString, averageUserPlaylist } from '../utils/functions';
 
 function Modal(props) {
     const [percentWidth, setPercentWidth] = useState();
@@ -13,7 +13,8 @@ function Modal(props) {
     const renderXIcon = () => {
         return (
             <div>
-                <img className="x-icon" onClick={() => props.setModal(false)} src={X} alt="X Icon" data-testid="X Icon"/>
+                <img className="x-icon" onClick={() => props.setModal(false)} src={X} alt="X Icon" data-testid="X Icon"
+                    onKeyPress={e => e.key === "Enter" ? props.setModal(false) : false} tabIndex="0" />
             </div> 
         );
     };
@@ -65,62 +66,19 @@ function Modal(props) {
             )
         } else //other wise create title
         message = "Your Playlist is";
-
-        //create playlist array and filter songs by id
-        const playlist = [];
-
-        for (let i = 0; i < props.data.length; i++){
-            playlist.push(props.songs.filter(song => song.id.$t === props.data[i]));
-        }
-        playlist.flat()
-
-        //create values arrays and collect playlist attribute values
-        let acoustic = [], dance = [], energy = [], instru = [], live = [], speech = [];
-
-        for (let j = 0; j < playlist.length; j++){
-            acoustic.push(playlist[j][0].gsx$acousticness.$t);
-            dance.push(playlist[j][0].gsx$danceability.$t);
-            energy.push(playlist[j][0].gsx$energy.$t);
-            instru.push(playlist[j][0].gsx$instrumentalness.$t);
-            live.push(playlist[j][0].gsx$liveness.$t);
-            speech.push(playlist[j][0].gsx$speechiness.$t);
-        }
-
-        //collect value arrays in larger array
-        const collected = [acoustic, dance, energy, instru, live, speech];
-
-        //loop thru collected values and create an array of averaged values
-        for (let i = 0; i < collected.length; i++){
-            collected[i] = 
-            ((collected[i].map(x => parseFloat(x)).reduce((x,y) => x + y, 0)) / collected[i].length).toFixed(4);
-        }
-
-        //create category string
-        let category = "";
         
-        //test averages against hardcoded values determined from surveyed songs and create the correct string
-        (+collected[1] > .7140 && +collected[2] > .4340) === true
-            ? category = " Aggressive"
-            : (+collected[0] <= .5700 && +collected[1] <= .8970 && +collected[2] < .4637) === true
-            ? category = " Spooky"
-            : (+collected[0] >= .0003 && +collected[3] > .3175) === true
-            ? category = " Whimsical" : category = " Unclear"; 
+        let calculatedData = averageUserPlaylist(props.data, props.songs);
         
-        //user percentage function to create array of values
-        let percentObjectArray = calculatePercent(collected);
+        let percentObjectArray = calculatePercent(calculatedData.collected);
         
-        return (
-            
+        return (  
             <>
-                
-                {message}{category}
+                {message}{calculatedData.category}
                 <h4>Stats:</h4>
                 <div className="playlist-modal-rank-titles">
-                    {percentObjectArray.map((percent, index) => {
-                    
+                    {percentObjectArray.map((percent, index) => {     
                         //create string for css and text display
                         const spanPercent = formatPercentString(percent.percent);
-                        
                         //return spans with according functions and values
                         return (
                             <span className="percent" key={index} style={{width: percentWidth}} onMouseEnter={() => animatePercentageBar("in", spanPercent )} 
@@ -140,7 +98,7 @@ function Modal(props) {
         //collect values from song data    
         const values = formatSongObjectValues(props.data);
         
-        //creat array of percent objects
+        //create array of percent objects
         const songPercentArray = calculatePercent(values);
            
         return (

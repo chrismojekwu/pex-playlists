@@ -166,19 +166,69 @@ const returnTestSongObject = () => {
     }]
 };
 
+
 //formats song object into correctly ordered array 
 const formatSongObjectValues = (arr) => {
   return !arr[0].id.$t ? null :
   [arr[0].gsx$acousticness.$t, arr[0].gsx$danceability.$t, arr[0].gsx$energy.$t, arr[0].gsx$instrumentalness.$t, arr[0].gsx$liveness.$t, arr[0].gsx$speechiness.$t];
 }
 
+
 //formats percent string for modal spans
 const formatPercentString = (num) => {
   return num > 100 ? "50%" : (num / 2 + 50) + "%";
 };
 
+
+//Collects user song objects averages values and creates category/mood for modal display
+const averageUserPlaylist = (userPlaylist, songs) => {
+  //create playlist array and filter songs by id
+  const playlist = [];
+
+  for (let i = 0; i < userPlaylist.length; i++){
+      playlist.push(songs.filter(song => song.id.$t === userPlaylist[i]));
+  }
+  playlist.flat()
+
+  //create values arrays and collect playlist attribute values
+  let acoustic = [], dance = [], energy = [], instru = [], live = [], speech = [];
+
+  for (let j = 0; j < playlist.length; j++){
+      acoustic.push(playlist[j][0].gsx$acousticness.$t);
+      dance.push(playlist[j][0].gsx$danceability.$t);
+      energy.push(playlist[j][0].gsx$energy.$t);
+      instru.push(playlist[j][0].gsx$instrumentalness.$t);
+      live.push(playlist[j][0].gsx$liveness.$t);
+      speech.push(playlist[j][0].gsx$speechiness.$t);
+  }
+
+  //collect value arrays in larger array
+  const collected = [acoustic, dance, energy, instru, live, speech];
+
+  //loop thru collected values and create an array of averaged values
+  for (let i = 0; i < collected.length; i++){
+      collected[i] = 
+      ((collected[i].map(x => parseFloat(x)).reduce((x,y) => x + y, 0)) / collected[i].length).toFixed(4);
+  }
+
+  //create category string
+  let category = "";
+  
+  //test averages against hardcoded values determined from surveyed songs and create the correct string
+  (+collected[1] > .7140 && +collected[2] > .4340) === true
+      ? category = " Aggressive"
+      : (+collected[0] <= .5700 && +collected[1] <= .8970 && +collected[2] < .4637) === true
+      ? category = " Spooky"
+      : (+collected[0] >= .0003 && +collected[3] > .3175) === true
+      ? category = " Whimsical" : category = " Unclear"; 
+
+      return { category: category, collected: collected}
+};
+
+
+
 module.exports = { 
-  getSongs, getUserPlaylist, filterSongs, formatPercentString,
+  getSongs, getUserPlaylist, filterSongs, formatPercentString, averageUserPlaylist,
   playlistModalDescription, calculatePercent, handleEnterKeypress, addSongToUserPlaylistReturnId,
   filterUserPlaylistSongs, returnTestUserPlaylistIds, returnTestSongObject, formatSongObjectValues
 }
