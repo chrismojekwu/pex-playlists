@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { getUserPlaylist ,filterUserPlaylistSongs} from '../utils/functions';
+import { getUserPlaylist } from '../utils/functions';
 import Song from '../songs/Songs';
 import './userplaylist.css';
 
@@ -19,10 +19,10 @@ function UserPlaylist(props) {
         );
     };
 
-    return props.songs === null 
+    return props.songs === null || props.songs === undefined
         ?   renderError()
-        :   playlist !== null && playlist[0] !== undefined
-        ?   <Song songs={filterUserPlaylistSongs(playlist, props.songs)} display={props.display} 
+        :   props.songs.length > 0 
+        ?   <Song songs={playlist} display={props.display} 
                 setRenderToggle={setRenderToggle} renderToggle={renderToggle}
                 setModal={props.setModal} watchModalData={props.watchModalData} 
             /> 

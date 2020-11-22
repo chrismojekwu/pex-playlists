@@ -42,15 +42,8 @@ it('testing keypress function', () => {
 });
 
 it('testing that localstorage function returns id', () => {
-    const testId = "https://testid.net";
-    expect(Utils.addSongToUserPlaylistReturnId(testId)).toEqual(testId);
-});
-
-it('testing function to retrieve user playlist objects', () => {
-    const objects = [{id:{$t: 1}}, {id:{$t: 2}}, {id:{$t: 3}}, {id:{$t: 4}}, {id:{$t: 5}}];
-    const ids = [2, 4, 5];
-    const expectedResult = [{id:{$t: 2}}, {id:{$t: 4}}, {id:{$t: 5}}];
-    expect(Utils.filterUserPlaylistSongs(ids, objects)).toEqual(expectedResult);
+    const testId = Utils.returnTestSongObject()[0].id.$t;
+    expect(Utils.addSongToUserPlaylistReturnId(Utils.returnTestSongObject()[0])).toEqual(testId);
 });
 
 it('testing object formatting function', () => {
@@ -66,10 +59,10 @@ it('testing percent string function', () => {
 });
 
 it('testing average user playlist function', () => {
-    const testSongArray = Utils.returnTestSongObject();
-    const testUserPlaylist = [testSongArray[0].id.$t, testSongArray[0].id.$t, testSongArray[0].id.$t];
+    const testObject = Utils.returnTestSongObject()[0]
+    const testUserPlaylist = [testObject, testObject, testObject];
     const correct = Utils.formatSongObjectValues(Utils.returnTestSongObject());
-    const calculated = Utils.averageUserPlaylist(testUserPlaylist, testSongArray).collected;
+    const calculated = Utils.averageUserPlaylist(testUserPlaylist).collected;
 
     for(let i = 0 ; i < correct.length; i++){
         expect(+correct[i]).toEqual(+calculated[i]);

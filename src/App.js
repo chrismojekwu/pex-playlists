@@ -76,7 +76,8 @@ function App() {
     }
     if ( id === "Your Playlist" ){
       setModalType("user-playlist");
-      setModalData(getUserPlaylist());
+      const playlist = getUserPlaylist()
+      setModalData(playlist);
     }
     if ( id.startsWith('https') ){
       setModalType("song");
@@ -115,7 +116,7 @@ function App() {
   : display === "Whimsical"
   ? filteredSongs.fun 
   : display === "Your Playlist"
-  ? songs 
+  ? getUserPlaylist() 
   : null;  
 
   return (
@@ -135,7 +136,7 @@ function App() {
        
         <ul className="song-container">
             {display === "Your Playlist"
-            ? <UserPlaylist songs={songs} display={display}
+            ? <UserPlaylist songs={data} display={display}
             setModal={setModal} watchModalData={watchModalData} playlist={getUserPlaylist()}/>
             : <Songs songs={data} addConfirm={addConfirm} setAddConfirm={setAddConfirm} 
               setModal={setModal} watchModalData={watchModalData} playlist={getUserPlaylist()}/> }   

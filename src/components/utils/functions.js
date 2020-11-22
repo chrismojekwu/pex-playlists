@@ -94,32 +94,22 @@ const handleEnterKeypress = (e, string) => {
 
 
 //checks for and adds a song to the users local playlist
-const addSongToUserPlaylistReturnId = (id) => {
+const addSongToUserPlaylistReturnId = (song) => {
   if (localStorage.getItem("pex-playlist") === null) {
-    localStorage.setItem("pex-playlist", JSON.stringify([id]));
-    return id;
+    localStorage.setItem("pex-playlist", JSON.stringify([song]));
+    return song.id.$t;
   }
   const playlist = JSON.parse(localStorage.getItem("pex-playlist"));
 
   //prevent duplicate songs in users playlist
-  if (playlist.includes(id) === true) return false;
-
-  playlist.push(id);
-  localStorage.setItem("pex-playlist", JSON.stringify(playlist)); 
-  return id;
-};
-
-//returns array of objects containing user playlist data - O(n^2)
-const filterUserPlaylistSongs = (playlist, songs) => {
-  const output = [];
-  for (let i = 0; i < songs.length; i++){
-    for(let j = 0; j < playlist.length; j++){
-      if(songs[i].id.$t === playlist[j]){
-        output.push(songs[i]);
-      }
-    }    
+  for(let i = 0; i < playlist.length; i++){
+    if (playlist.includes(song) === true) return false;
   }
-  return output;
+  
+
+  playlist.push(song);
+  localStorage.setItem("pex-playlist", JSON.stringify(playlist)); 
+  return song.id.$t;
 };
 
 
@@ -181,25 +171,18 @@ const formatPercentString = (num) => {
 
 
 //Collects user song objects averages values and creates category/mood for modal display
-const averageUserPlaylist = (userPlaylist, songs) => {
-  //create playlist array and filter songs by id
-  const playlist = [];
-
-  for (let i = 0; i < userPlaylist.length; i++){
-      playlist.push(songs.filter(song => song.id.$t === userPlaylist[i]));
-  }
-  playlist.flat()
+const averageUserPlaylist = (playlist) => {
 
   //create values arrays and collect playlist attribute values
   let acoustic = [], dance = [], energy = [], instru = [], live = [], speech = [];
 
-  for (let j = 0; j < playlist.length; j++){
-      acoustic.push(playlist[j][0].gsx$acousticness.$t);
-      dance.push(playlist[j][0].gsx$danceability.$t);
-      energy.push(playlist[j][0].gsx$energy.$t);
-      instru.push(playlist[j][0].gsx$instrumentalness.$t);
-      live.push(playlist[j][0].gsx$liveness.$t);
-      speech.push(playlist[j][0].gsx$speechiness.$t);
+  for (let i = 0; i < playlist.length; i++){
+      acoustic.push(playlist[i].gsx$acousticness.$t);
+      dance.push(playlist[i].gsx$danceability.$t);
+      energy.push(playlist[i].gsx$energy.$t);
+      instru.push(playlist[i].gsx$instrumentalness.$t);
+      live.push(playlist[i].gsx$liveness.$t);
+      speech.push(playlist[i].gsx$speechiness.$t);
   }
 
   //collect value arrays in larger array
@@ -230,5 +213,5 @@ const averageUserPlaylist = (userPlaylist, songs) => {
 module.exports = { 
   getSongs, getUserPlaylist, filterSongs, formatPercentString, averageUserPlaylist,
   playlistModalDescription, calculatePercent, handleEnterKeypress, addSongToUserPlaylistReturnId,
-  filterUserPlaylistSongs, returnTestUserPlaylistIds, returnTestSongObject, formatSongObjectValues
+  returnTestUserPlaylistIds, returnTestSongObject, formatSongObjectValues
 }

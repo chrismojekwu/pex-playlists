@@ -5,7 +5,7 @@ import UserPlaylist from './UserPlaylist';
 afterEach(cleanup);
 
 it('renders empty playlist message for empty user playlist', () => {
-    render(<UserPlaylist/>);
+    render(<UserPlaylist songs={[]}/>);
     expect(screen.getByTestId('emptyplaylist')).toBeInTheDocument();
 });
 
