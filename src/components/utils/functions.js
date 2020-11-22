@@ -109,13 +109,15 @@ const addSongToUserPlaylistReturnId = (id) => {
   return id;
 };
 
-//returns array of objects containing user playlist data 
+//returns array of objects containing user playlist data - O(n^2)
 const filterUserPlaylistSongs = (playlist, songs) => {
   const output = [];
-  for (let i = 0; i < playlist.length; i++){
-      output.push(songs.filter(song => {
-          return song.id.$t === playlist[i]
-      })[0]);
+  for (let i = 0; i < songs.length; i++){
+    for(let j = 0; j < playlist.length; j++){
+      if(songs[i].id.$t === playlist[j]){
+        output.push(songs[i]);
+      }
+    }    
   }
   return output;
 };
@@ -164,8 +166,19 @@ const returnTestSongObject = () => {
     }]
 };
 
+//formats song object into correctly ordered array 
+const formatSongObjectValues = (arr) => {
+  return !arr[0].id.$t ? null :
+  [arr[0].gsx$acousticness.$t, arr[0].gsx$danceability.$t, arr[0].gsx$energy.$t, arr[0].gsx$instrumentalness.$t, arr[0].gsx$liveness.$t, arr[0].gsx$speechiness.$t];
+}
+
+//formats percent string for modal spans
+const formatPercentString = (num) => {
+  return num > 100 ? "50%" : (num / 2 + 50) + "%";
+};
+
 module.exports = { 
-  getSongs, getUserPlaylist, filterSongs, 
-  playlistModalDescription, calculatePercent, handleEnterKeypress, 
-  addSongToUserPlaylistReturnId, filterUserPlaylistSongs, returnTestUserPlaylistIds, returnTestSongObject 
+  getSongs, getUserPlaylist, filterSongs, formatPercentString,
+  playlistModalDescription, calculatePercent, handleEnterKeypress, addSongToUserPlaylistReturnId,
+  filterUserPlaylistSongs, returnTestUserPlaylistIds, returnTestSongObject, formatSongObjectValues
 }

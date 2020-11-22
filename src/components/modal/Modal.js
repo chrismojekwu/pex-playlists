@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import X from '../../images/icon/x.png';
 import './modal.css';
-import { playlistModalDescription, calculatePercent } from '../utils/functions';
+import { playlistModalDescription, calculatePercent, formatSongObjectValues } from '../utils/functions';
 
 function Modal(props) {
     const [percentWidth, setPercentWidth] = useState();
@@ -16,10 +16,6 @@ function Modal(props) {
                 <img className="x-icon" onClick={() => props.setModal(false)} src={X} alt="X Icon" data-testid="X Icon"/>
             </div> 
         );
-    };
-
-    const formatPercentString = (num) => {
-        return num > 100 ? "50%" : (num / 2 + 50) + "%";
     };
 
     const renderPlaylistData = () => {
@@ -142,13 +138,12 @@ function Modal(props) {
     const renderSongData = () => {
         
         //collect values from song data    
-        const values = [props.data[0].gsx$acousticness.$t, props.data[0].gsx$danceability.$t, props.data[0].gsx$energy.$t, props.data[0].gsx$instrumentalness.$t, props.data[0].gsx$liveness.$t, props.data[0].gsx$speechiness.$t];
+        const values = formatSongObjectValues(props.data);
         
         //creat array of percent objects
         const songPercentArray = calculatePercent(values);
            
         return (
-            
             <>                
                 <h4>{props.data[0].gsx$artist.$t}</h4>
                 <span>{props.data[0].gsx$songtitle.$t}</span>
@@ -167,7 +162,6 @@ function Modal(props) {
                     })}
                     </div>
             </>
-             
         );
     };
 
