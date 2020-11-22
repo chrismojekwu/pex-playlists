@@ -48,7 +48,8 @@ function ListCards(props){
                         {card.name}
                     </span>
                     <div className="emoji-div" onDoubleClick={() => handleDoubleClick(card.title)}
-                        style={{ borderColor: card.contrast, backgroundColor: card.contrast }}>
+                        onKeyPress={e => handleDoubleClick(handleEnterKeypress(e, card.title))}
+                        style={{ borderColor: card.contrast, backgroundColor: card.contrast }} tabIndex="0">
                         <img className="emoji" src={card.emoji} alt="Emoji"/>
                     </div>
                 </div>

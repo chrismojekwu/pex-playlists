@@ -64,3 +64,14 @@ it('testing percent string function', () => {
     expect(Utils.formatPercentString(over)).toEqual("50%");
     expect(Utils.formatPercentString(normal)).toEqual("90%");
 });
+
+it('testing average user playlist function', () => {
+    const testSongArray = Utils.returnTestSongObject();
+    const testUserPlaylist = [testSongArray[0].id.$t, testSongArray[0].id.$t, testSongArray[0].id.$t];
+    const correct = Utils.formatSongObjectValues(Utils.returnTestSongObject());
+    const calculated = Utils.averageUserPlaylist(testUserPlaylist, testSongArray).collected;
+
+    for(let i = 0 ; i < correct.length; i++){
+        expect(+correct[i]).toEqual(+calculated[i]);
+    };
+});
