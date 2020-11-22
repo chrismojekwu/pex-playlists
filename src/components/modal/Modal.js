@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import X from '../../images/icon/x.png';
 import './modal.css';
-import { playlistModalDescription, calculatePercent, formatSongObjectValues } from '../utils/functions';
+import { playlistModalDescription, calculatePercent, formatSongObjectValues, formatPercentString } from '../utils/functions';
 
 function Modal(props) {
     const [percentWidth, setPercentWidth] = useState();
