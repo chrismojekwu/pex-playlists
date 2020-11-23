@@ -38,7 +38,7 @@ function Songs(props) {
     }
     return output;
   }
-
+  
   const renderSongs = () => { 
     const arr = props.songs > 100 ? props.songs : props.songs.slice(0, 100);
     return arr.map((song, index) => {
