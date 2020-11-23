@@ -32,7 +32,7 @@
 }
 
 .card-title {
-    position: sticky;
+    position: relative;
     top: 40px;
     padding: 10px;
     background-color: black;
@@ -43,11 +43,11 @@
 
 .card-img {
     display: block;
-    position: sticky;
-    top: 20px;
+    position: relative;
     width: auto;
     margin: auto;
     height: 220px;
+    bottom: 8px;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
@@ -67,10 +67,6 @@
     left: 220px;
     text-align: center;
     transition: 0.6s ease-in;
-}
-
-.emoji-div:focus {
-    bottom: 90px;
 }
 
 .emoji {
