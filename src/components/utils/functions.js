@@ -12,8 +12,12 @@ const getSongs = () => {
 //retrieves localStorage ids
 const getUserPlaylist = () => {
   if (localStorage.getItem("pex-playlist") === null){
-    return null ;
+    return null;
   } else
+  if(typeof(localStorage.getItem("pex-playlist")[0]) === String){
+    localStorage.clear();
+    return null;
+  }
   return JSON.parse(localStorage.getItem("pex-playlist"));
 }
 
