@@ -32,13 +32,15 @@ function Songs(props) {
   };
 
   const dotIndicator = (playlist) => {
+    //console.log(playlist)
+    if(!playlist[0].id) return [];
     let output = [];
     for(let i = 0; i < playlist.length; i++){
       output.push(playlist[i].id.$t);
     }
     return output;
   }
-  
+
   const renderSongs = () => { 
     const arr = props.songs > 100 ? props.songs : props.songs.slice(0, 100);
     return arr.map((song, index) => {
