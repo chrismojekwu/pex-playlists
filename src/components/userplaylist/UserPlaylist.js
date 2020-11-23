@@ -22,7 +22,7 @@ function UserPlaylist(props) {
     return props.songs === null || props.songs === undefined
         ?   renderError()
         :   props.songs.length > 0 
-        ?   <Song songs={playlist} display={props.display} 
+        ?   <Song songs={playlist} display={props.display} playlist={playlist}
                 setRenderToggle={setRenderToggle} renderToggle={renderToggle}
                 setModal={props.setModal} watchModalData={props.watchModalData} 
             /> 
