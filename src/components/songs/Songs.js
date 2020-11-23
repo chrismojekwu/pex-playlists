@@ -31,10 +31,10 @@ function Songs(props) {
       props.setModal(true);
   };
 
-  const dotIndicator = (id) => {
+  const dotIndicator = (playlist) => {
     let output = [];
-    for(let i = 0; i < props.playlist.length; i++){
-      output.push(props.playlist[i].id.$t);
+    for(let i = 0; i < playlist.length; i++){
+      output.push(playlist[i].id.$t);
     }
     return output;
   }
@@ -53,7 +53,7 @@ function Songs(props) {
             </div>
 
             <div className="dot" style={{ 
-              display: props.playlist && dotIndicator().includes(song.id.$t) 
+              display: props.playlist && dotIndicator(props.playlist).includes(song.id.$t) 
                 ? "block" : "none" }}>
               ⬤
             </div>
